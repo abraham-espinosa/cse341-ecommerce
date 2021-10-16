@@ -23,6 +23,7 @@ const ta01Routes = require('./routes/teamRoutes/ta01');
 const ta02Routes = require('./routes/teamRoutes/ta02');
 const ta03Routes = require('./routes/teamRoutes/ta03');
 const ta04Routes = require('./routes/teamRoutes/ta04');
+const ta05Routes = require('./routes/teamRoutes/ta05');
 
 app
   .use(express.static(path.join(__dirname, 'public')))
