@@ -151,7 +151,7 @@ form {
 .mobile-nav__item a.active,
 .mobile-nav__item button:hover,
 .mobile-nav__item button:active {
-  background: #00695c;
+  background: #936639;
   color: white;
   border-radius: 3px;
 }
@@ -233,8 +233,8 @@ form {
   padding: 0.25rem 1rem;
   text-decoration: none;
   font: inherit;
-  border: 1px solid #00695c;
-  color: #00695c;
+  border: 1px solid #936639;
+  color: #936639;
   background: white;
   border-radius: 3px;
   cursor: pointer;
@@ -242,7 +242,7 @@ form {
 
 .btn:hover,
 .btn:active {
-  background-color: #00695c;
+  background-color: #936639;
   color: white;
 }
 
@@ -268,6 +268,7 @@ form {
 }
 
 .user-message--error {
+  margin-top: 1rem;
   border-color: red;
   background: rgb(255, 176, 176);
   color: red;
