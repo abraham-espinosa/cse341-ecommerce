@@ -5,9 +5,9 @@ require('dotenv').config();
 
 const User = require('../models/user');
 
-var api_key = process.env.API_KEY; 
-var domain = process.env.DOMAIN;
-var mailgun = require('mailgun-js')({
+const api_key = process.env.API_KEY; 
+const domain = process.env.DOMAIN;
+const mailgun = require('mailgun-js')({
   apiKey: api_key,
   domain: domain
 });
