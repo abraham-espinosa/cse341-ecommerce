@@ -1,16 +1,16 @@
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
+require('dotenv').config();
 
 const User = require('../models/user');
 
-const transporter = nodemailer.createTransport(
-  sendgridTransport({
-    auth: {
-      api_key: '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'
-    }
-  })
-);
+var api_key = process.env.API_KEY; 
+var domain = process.env.DOMAIN;
+var mailgun = require('mailgun-js')({
+  apiKey: api_key,
+  domain: domain
+});
 
 exports.getLogin = (req, res, next) => {
   let message = req.flash('error');
@@ -102,12 +102,21 @@ exports.postSignup = (req, res, next) => {
         })
         .then(result => {
           res.redirect('/login');
-          return transporter.sendMail({
-            to: email,
-            from: 'shop@node-complete.com',
-            subject: 'Signup succeeded!',
-            html: '<h1>You successfully signed up!</h1>'
-          });
+          // return transporter.sendMail({
+          //   to: email,
+          //   from: 'shop@node-complete.com',
+          //   subject: 'Signup succeeded!',
+          //   html: '<h1>You successfully signed up!</h1>'
+          // });
+          mailgun.messages().send({
+              to: email,
+              from: 'Flower House <esp19005@byui.edu>',
+              subject: 'Welcome to Flower House',
+              html: '<h1>You successfully signed up! Welcome to Flower House</h1>'
+            },
+            function (error, body) {
+              console.log(body);
+            });
         })
         .catch(err => {
           console.log(err);
