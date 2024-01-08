@@ -9,7 +9,7 @@ const {
 
 const User = require('../models/user');
 
-//mailgun email
+//Mailgun Email
 const api_key = process.env.API_KEY;
 const domain = process.env.DOMAIN;
 const mailgun = require('mailgun-js')({
@@ -17,6 +17,7 @@ const mailgun = require('mailgun-js')({
   domain: domain
 });
 
+// GET LOGIN '/login'
 exports.getLogin = (req, res, next) => {
   let message = req.flash('error');
   if (message.length > 0) {
@@ -36,6 +37,7 @@ exports.getLogin = (req, res, next) => {
   });
 };
 
+// GET SIGNUP '/signup'
 exports.getSignup = (req, res, next) => {
   let message = req.flash('error');
   if (message.length > 0) {
@@ -56,6 +58,7 @@ exports.getSignup = (req, res, next) => {
   });
 };
 
+// POST LOGIN '/login'
 exports.postLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -124,6 +127,7 @@ exports.postLogin = (req, res, next) => {
     });
 };
 
+// POST SIGNUP '/signup'
 exports.postSignup = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -175,7 +179,7 @@ exports.postSignup = (req, res, next) => {
     });
 };
 
-
+// POST LOGOUT
 exports.postLogout = (req, res, next) => {
   req.session.destroy(err => {
     console.log(err);
@@ -183,6 +187,7 @@ exports.postLogout = (req, res, next) => {
   });
 };
 
+// GET RESET '/reset'
 exports.getReset = (req, res, next) => {
   let message = req.flash('error');
   if (message.length > 0) {
@@ -197,6 +202,7 @@ exports.getReset = (req, res, next) => {
   });
 };
 
+// POST RESET PASSWORD
 exports.postReset = (req, res, next) => {
   crypto.randomBytes(32, (err, buffer) => {
     if (err) {
@@ -226,20 +232,10 @@ exports.postReset = (req, res, next) => {
               <p>You requested a password reset</p>
             <p>Click this <a href="http://localhost:5000/reset/${token}">link</a> to set a new password.</p>
             `
-            //<p>Click this <a href="http://localhost:5000/reset/${token}">link</a> to set a new password.</p>
           },
           function (error, body) {
             console.log(body);
           });
-        // transporter.sendMail({
-        //   to: req.body.email,
-        //   from: 'shop@node-complete.com',
-        //   subject: 'Password reset',
-        //   html: `
-        //     <p>You requested a password reset</p>
-        //     <p>Click this <a href="http://localhost:3000/reset/${token}">link</a> to set a new password.</p>
-        //   `
-        // });
       })
       .catch(err => {
         const error = new Error(err);
@@ -248,6 +244,7 @@ exports.postReset = (req, res, next) => {
   });
 };
 
+// GET NEW PASSWORD '/new-password'
 exports.getNewPassword = (req, res, next) => {
   const token = req.params.token;
   User.findOne({
@@ -278,6 +275,7 @@ exports.getNewPassword = (req, res, next) => {
     });
 };
 
+// POST NEW PASSWORD
 exports.postNewPassword = (req, res, next) => {
   const newPassword = req.body.password;
   const userId = req.body.userId;

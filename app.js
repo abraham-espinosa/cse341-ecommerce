@@ -1,5 +1,4 @@
 const path = require('path');
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -7,6 +6,7 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
+
 require('dotenv').config();
 
 const errorController = require('./controllers/error');
@@ -21,9 +21,11 @@ const store = new MongoDBStore({
 });
 const csrfProtection = csrf();
 
+//EJS Engine 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
+//Routes
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const authRoutes = require('./routes/auth');
@@ -50,7 +52,6 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  // throw new Error('Sync Dummy');
   if (!req.session.user) {
     return next();
   }

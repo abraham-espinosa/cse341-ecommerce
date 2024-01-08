@@ -1,6 +1,7 @@
 const Product = require('../models/product');
 const Order = require('../models/order');
 
+// GET ALL PRODUCTS '/products'
 exports.getProducts = (req, res, next) => {
   Product.find()
     .then(products => {
@@ -18,6 +19,7 @@ exports.getProducts = (req, res, next) => {
     });
 };
 
+// GET PRODUCT BY ID '/products' 
 exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
   Product.findById(prodId)
@@ -35,6 +37,7 @@ exports.getProduct = (req, res, next) => {
     });
 };
 
+// GET INDEX '/'
 exports.getIndex = (req, res, next) => {
   Product.find()
     .then(products => {
@@ -51,6 +54,7 @@ exports.getIndex = (req, res, next) => {
     });
 };
 
+// GET CART '/cart'
 exports.getCart = (req, res, next) => {
   req.user
     .populate('cart.items.productId')
@@ -70,6 +74,7 @@ exports.getCart = (req, res, next) => {
     });
 };
 
+// POST CART '/cart'
 exports.postCart = (req, res, next) => {
   const prodId = req.body.productId;
   Product.findById(prodId)
@@ -87,6 +92,7 @@ exports.postCart = (req, res, next) => {
     });
 };
 
+// POST CART DELETE PRODUCT 
 exports.postCartDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
   req.user
@@ -101,6 +107,7 @@ exports.postCartDeleteProduct = (req, res, next) => {
     });
 };
 
+// POST ORDER 
 exports.postOrder = (req, res, next) => {
   req.user
     .populate('cart.items.productId')
@@ -136,6 +143,7 @@ exports.postOrder = (req, res, next) => {
     });
 };
 
+// GET ORDERS '/orders'
 exports.getOrders = (req, res, next) => {
   Order.find({
       'user.userId': req.user._id
