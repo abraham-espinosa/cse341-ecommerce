@@ -5,7 +5,7 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 const {
   validationResult
-} = require('express-validator/check');
+} = require('express-validator');
 
 const User = require('../models/user');
 
@@ -223,9 +223,9 @@ exports.postReset = (req, res, next) => {
             from: 'Flower House <esp19005@byui.edu>',
             subject: 'Password Reset for Flower House',
             html: `
-            <p>You requested a password reset</p>
-            <p>Click this <a href="https://cse341-project-master.herokuapp.com/reset/${token}">link</a> to set a new password.</p>
-          `
+              <p>You requested a password reset</p>
+            <p>Click this <a href="http://localhost:5000/reset/${token}">link</a> to set a new password.</p>
+            `
             //<p>Click this <a href="http://localhost:5000/reset/${token}">link</a> to set a new password.</p>
           },
           function (error, body) {
