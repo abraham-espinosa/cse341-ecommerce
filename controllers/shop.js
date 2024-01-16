@@ -43,7 +43,7 @@ exports.getIndex = (req, res, next) => {
     .then(products => {
       res.render('shop/index', {
         prods: products,
-        pageTitle: 'Flower House',
+        pageTitle: 'Flower Home',
         path: '/'
       });
     })

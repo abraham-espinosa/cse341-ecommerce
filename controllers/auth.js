@@ -164,9 +164,9 @@ exports.postSignup = (req, res, next) => {
       res.redirect('/login');
       mailgun.messages().send({
           to: email,
-          from: 'Flower House <esp19005@byui.edu>',
-          subject: 'Welcome to Flower House',
-          html: '<h1>You successfully signed up! Welcome to Flower House</h1>'
+          from: 'Flower Home <esp19005@byui.edu>',
+          subject: 'Welcome to Flower Home',
+          html: '<h3>You successfully signed up! Welcome to Flower Home</h3>'
         },
         function (error, body) {
           console.log(body);
@@ -219,19 +219,19 @@ exports.postReset = (req, res, next) => {
           return res.redirect('/reset');
         }
         user.resetToken = token;
-        user.resetTokenExpiration = Date.now() + 3600000;
+        user.resetTokenExpiration = Date.now() + 60;
         return user.save();
       })
       .then(result => {
         res.redirect('/');
         mailgun.messages().send({
             to: req.body.email,
-            from: 'Flower House <esp19005@byui.edu>',
-            subject: 'Password Reset for Flower House',
+            from: 'Flower Home <esp19005@byui.edu>',
+            subject: 'Password Reset for Flower Home',
             html: `
-              <p>You requested a password reset</p>
-            <p>Click this <a href="http://localhost:5000/reset/${token}">link</a> to set a new password.</p>
-            `
+              <h3>You requested a password reset</h3>
+              <p>Click this <a href="http://localhost:5000/reset/${token}">link</a> to set a new password.</p>
+              `
           },
           function (error, body) {
             console.log(body);
